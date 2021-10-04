@@ -30,7 +30,7 @@ class Findgit:
     def get_info(self):
         """prepare to print the info"""
         for i, j in self._repo.items():
-            print(f"Repo: {i} Number of commits: {j}")
+            print("Repo: {i} Number of commits: {j}")
 
     def get_repo_list(self):
         """get the repo list"""
