@@ -36,7 +36,7 @@ class Findgit:
         """get the repo list"""
         return self._repo.keys()
 
-    def get_commits(self, name: str):
+    def get_commits(self, name):
         """get the commits"""
         if name in self._repo.keys():
             return self._repo[name]
