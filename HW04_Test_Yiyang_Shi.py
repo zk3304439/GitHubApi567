@@ -1,28 +1,38 @@
 """Author:Yiyang Shi
-   Program content:HW04: Develop with the Perspective of the Tester in mind
+   Program content:HW05: Mock test
 """
 
 import unittest
+from unittest import mock
+from unittest.mock import Mock
 
 from HW04_Yiyang_Shi import Findgit
 
 
-class TriangleTest(unittest.TestCase):
+class GitTest(unittest.TestCase):
     """Test the class and functions"""
 
-    def test_repo(self):
+    @mock.patch('requests.get')
+    def test_getting_todos_when_response_is_ok(self, mock_get):
         """Test the repos"""
-        User = Findgit("zk3304439")
+        todos = 'zk3304439'
+        mock_get.return_value = Mock(ok=True)
+        mock_get.return_value.json.return_value = todos
+        User = Findgit(todos)
 
-        self.assertTrue('SSW-567' in User.get_repo_list())
         self.assertTrue('567Tri' in User.get_repo_list())
         self.assertFalse('Student-Repository' not in User.get_repo_list())
         self.assertTrue('hello-world' in User.get_repo_list())
         self.assertTrue('tinyobjloader' in User.get_repo_list())
 
-    def test_commits(self):
+    @mock.patch('requests.get')
+    def test_getting_todos_when_commit_is_ok(self, mock_get):
         """Test the commits"""
-        User = Findgit("zk3304439")
+        todos = 'zk3304439'
+        mock_get.return_value = Mock(ok=True)
+        mock_get.return_value.json.return_value = todos
+        User = Findgit(todos)
+
         self.assertGreaterEqual(User.get_commits('SSW-567'), 1)
         self.assertGreaterEqual(User.get_commits('567Tri'), 15)
         self.assertGreaterEqual(User.get_commits('Student-Repository'), 9)
